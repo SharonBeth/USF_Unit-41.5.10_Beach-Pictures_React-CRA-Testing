@@ -16,7 +16,6 @@ import "./Card.css";
  */
 
 function Card({ caption, src, currNum, totalNum }) {
-
   return (
     <div className="Card">
       <h4 className="Card-title">{caption}</h4>
