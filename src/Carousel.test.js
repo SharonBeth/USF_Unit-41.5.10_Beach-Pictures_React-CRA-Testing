@@ -83,7 +83,6 @@ it("should advance to the next image when you click the left arrow", () => {
   const { getByTestId, queryByAltText } = render(<Carousel setCurrCardIdx="2" />);
   const leftArrow = getByTestId("left-arrow");
   const rightArrow = getByTestId("right-arrow");
-  const setCurrCardIdx = 2;
 
   // move forward in the carousel by clicking the right arrow
   fireEvent.click(rightArrow);
