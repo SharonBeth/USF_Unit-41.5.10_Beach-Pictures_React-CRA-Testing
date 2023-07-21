@@ -20,7 +20,7 @@ function Card({ caption, src, currNum, totalNum }) {
     <div className="Card">
       <h4 className="Card-title">{caption}</h4>
       <img className="Card-image" src={src} alt={caption} />
-      <small className="Card-small">
+      <small className="Card-small" id="card-small">
         Image {currNum} of {totalNum}.
       </small>
     </div>

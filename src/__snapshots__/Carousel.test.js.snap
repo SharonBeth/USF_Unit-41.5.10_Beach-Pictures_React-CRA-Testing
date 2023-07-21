@@ -30,6 +30,7 @@ exports[`matches snapshot 1`] = `
         />
         <small
           class="Card-small"
+          id="card-small"
         >
           Image 1 of 3.
         </small>

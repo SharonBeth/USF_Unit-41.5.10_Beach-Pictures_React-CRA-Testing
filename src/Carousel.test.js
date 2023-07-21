@@ -1,11 +1,11 @@
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent, screen } from "@testing-library/react";
 import Carousel from "./Carousel";
 // import Card from "./Card";
 import TEST_IMAGES from "./_testCommon.js";
 import React from "react";
 
 ////************************************************************* */
-//Smoke test for Carousel
+//Smoke test for Carousel: left it because it was requested inthe homework.
 ////************************************************************* */
 it("Smoke test for Carousel", function () {
   render(<Carousel photos={TEST_IMAGES} title="Sharon'sTest" />);
@@ -15,11 +15,6 @@ it("Smoke test for Carousel", function () {
 //Snapshot Test for Carousel
 ////************************************************************* */
 
-// it("matches to snapshot", function () {
-// const { asFragment } = render(<Carousel />)
-// expect(asFragment()).toMatchSnapshot();
-// });
-
 it('matches snapshot', () => {
   const { asFragment } = render(<Carousel photos={TEST_IMAGES} title="Sharon'sTest" />);
   expect(asFragment()).toMatchSnapshot();
@@ -28,7 +23,7 @@ it('matches snapshot', () => {
 
 ////************************************************************* */
 //Click Right Arrow, 
-//I htink this one was given as starter test-code.
+//This was in the starter code for guidance on teh rest of hte code.
 ////************************************************************* */
 
 
@@ -79,54 +74,72 @@ it("works when you click on the right arrow", function () {
 //left arrow:
 ////************************************************************* */
 
-it("should advance to the next image when you click the left arrow", () => {
-  const { getByTestId, queryByAltText } = render(<Carousel setCurrCardIdx="2" />);
-  const leftArrow = getByTestId("left-arrow");
-  const rightArrow = getByTestId("right-arrow");
+it("works when you click the left arrow", function () {
+  const { container } = render(
+    <Carousel
+      photos={TEST_IMAGES}
+      title="images for testing"
 
-  // move forward in the carousel by clicking the right arrow
+    />
+  )
+
+  ////************************************************************* */
+  // expect the first image to show, but not the second.
+  // I think this was starter test-code.
+  ////************************************************************* */
+
+
+
+
+
+
+
+
+
+  ////************************************************************* */
+  // move forward in the carousel. & then back to show using the left arrow button
+  //
+  ////************************************************************* */
+  const rightArrow = container.querySelector(".bi-arrow-right-circle");
   fireEvent.click(rightArrow);
+  //
 
-  // expect second image to show, but not the first
-  expect(queryByAltText("Photo by Pratik Patel on Unsplash")).toBeInTheDocument();
-  expect(queryByAltText("Photo by Richard Pasquarella on Unsplash")).not.toBeInTheDocument();
+  expect(
+    container.querySelector('img[alt="testing image 2"]')
+  ).toBeInTheDocument();
+  expect(
+    container.querySelector('img[alt="testing image 1"]')
+  ).not.toBeInTheDocument();
 
-  // move backward in the carousel by clicking the left arrow
+  const leftArrow = container.querySelector(".bi-arrow-left-circle");
   fireEvent.click(leftArrow);
 
-  // expect the first image to show, but not the second
-  expect(queryByAltText("Photo by Richard Pasquarella on Unsplash")).toBeInTheDocument();
-  expect(queryByAltText("Photo by Pratik Patel on Unsplash")).not.toBeInTheDocument()
+  ////************************************************************* */
+  // expect the second image to show, but not the first
+  //I think this was starter test-code.
+  ////************************************************************* */
+  expect(
+    container.querySelector('img[alt="testing image 2"]')
+  ).not.toBeInTheDocument();
+  expect(
+    container.querySelector('img[alt="testing image 1"]')
+  ).toBeInTheDocument();
 });
 
+////************************************************************* */
+//Testing to find actual text in teh User interface instead of just the html in the file code.
+////************************************************************* */
 
-
-// it("works when you get the to first picture, and there is no arrow", function () {
-// const { container } = render(
-// <Carousel
-// photos={TEST_IMAGES}
-// title="images for testing"
-// />
-// );
-// expect the first image to show, but not the second
-// expect(
-// container.querySelector('img[alt="testing image 3"]')
-// ).toBeInTheDocument();
-// expect(
-// container.querySelector('img[alt="testing image 2"]')
-// ).not.toBeInTheDocument();
-// const leftArrow = container.querySelector(".bi-arrow-left-circle");
-// fireEvent.click(leftArrow)
-// expect the second image to show, but not the first
-// expect(
-  // container.querySelector('img[alt="testing image 3"]')
-// ).not.toBeInTheDocument();
-// expect(
-  // container.querySelector('img[alt="testing image 2"]')
-// ).toBeInTheDocument();
-// });
+// it("confirms that the 'image' text is on the page when rendered", async () => {
+  // const { getAllByText } = render(
+    // <Carousel
+      // photos={TEST_IMAGES}
+      // title="images for testing"
 // 
-// it("testing to render entire page", () => {
-  // render(<Carousel />);
-  // screen.debug();
+    // />
+  // )
+// 
+  // screen.getAllByText('Image', { exact: false }).toBeInTheDocument();
+// 
 // })
+// 
